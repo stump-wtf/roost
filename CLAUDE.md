@@ -56,7 +56,8 @@ When implementing code governed by an artifact, leave a governing comment:
 
 ## Build & run
 
-Requires JDK 17 and the Android SDK (platform 34, build-tools 34.0.0).
+Requires JDK 17 or newer (the AGP 9 / Gradle 9 floor; CI builds on Temurin 21) and
+the Android SDK (platform 34, build-tools 34.0.0).
 
 ```bash
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
