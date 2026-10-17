@@ -5,6 +5,8 @@
 .DS_Store
 /build/
 /app/build/
+/toolchain/
+/android-sdk/
 /captures
 .externalNativeBuild
 .cxx/

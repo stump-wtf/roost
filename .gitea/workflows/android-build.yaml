@@ -1,0 +1,50 @@
+# Compile and lint gate. Until now nothing in this repo ran Gradle, so a
+# dependency bump could land on main and leave it unbuildable with every check
+# green — which is what Gradle 9.7.1 did in October 2026 (issue #21). These
+# jobs prove the app assembles, and that lint stays clean, on every PR and on
+# main. `make test` is wired in the Makefile but not run here: the project has
+# no unit tests yet, and a job over an empty test source set is a green that
+# proves nothing.
+name: Android build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  ANDROID_HOME: ${{ github.workspace }}/android-sdk
+  ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
+  JAVA_HOME: ${{ github.workspace }}/toolchain/jdk21
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install JDK 21 and the Android SDK
+        run: bash .gitea/scripts/install-build-toolchain.sh
+
+      - name: Assemble debug APK
+        run: make build GRADLE="./gradlew --no-daemon"
+
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install JDK 21 and the Android SDK
+        run: bash .gitea/scripts/install-build-toolchain.sh
+
+      - name: Lint
+        run: make lint GRADLE="./gradlew --no-daemon"

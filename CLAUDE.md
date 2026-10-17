@@ -61,7 +61,7 @@ Requires JDK 17 and the Android SDK (platform 34, build-tools 34.0.0).
 ```bash
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-./gradlew assembleDebug
+./gradlew assembleDebug      # or: make build — CI runs the same target
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell cmd package set-home-activity rocks.stump.roost/.MainActivity
 ```
