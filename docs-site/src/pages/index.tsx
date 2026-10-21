@@ -5,10 +5,11 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 
-export default function Home(): JSX.Element {
+export default function Home(): React.JSX.Element {
   const {siteConfig} = useDocusaurusContext();
-  const sourceUrl = siteConfig.customFields.sourceUrl as string;
-  const sourceLabel = siteConfig.customFields.sourceLabel as string;
+  const {customFields = {}} = siteConfig;
+  const sourceUrl = customFields.sourceUrl as string;
+  const sourceLabel = customFields.sourceLabel as string;
 
   const homeShot = useBaseUrl('img/home.png');
   const settingsShot = useBaseUrl('img/settings.png');
